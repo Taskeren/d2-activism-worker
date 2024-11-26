@@ -5,7 +5,7 @@ compatibility_date = "2024-11-26"
 # compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
-BUNGIE_API_KEY = "redacted"
+
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
