@@ -53,7 +53,7 @@ app.get("/v1/get-history/:membershipType/:membershipId", async (c) => {
         }, 400)
     }
 
-    // construct a date of 3 days ago
+    // construct a date of 7 days ago
     const time = new Date()
     time.setDate(time.getDate() - 7)
 

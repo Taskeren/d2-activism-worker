@@ -38,13 +38,14 @@ export async function getCharacterIds(cli: HttpClient, membershipType: BungieMem
  */
 export async function getCharacterActivityHistoryInTime(cli: HttpClient, membershipType: BungieMembershipType, membershipId: string, characterId: string, sentinelTime: Date, countPerRequest: number = 50): Promise<DestinyHistoricalStatsPeriodGroup[]> {
     let result: DestinyHistoricalStatsPeriodGroup[] = []
-    for(let page = 1; ; page++) {
+    for(let page = 0; ; page++) {
         console.log(`Fetching Activity Histories for ${membershipType}:${membershipId} #${characterId} page ${page}`)
         let resp = await getActivityHistory(cli, {
             characterId: characterId,
             membershipType: membershipType,
             destinyMembershipId: membershipId,
             count: countPerRequest,
+            page: page,
         })
 
         // check success
