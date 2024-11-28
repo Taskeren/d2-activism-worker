@@ -15,6 +15,7 @@ export async function getCharacterIds(cli: HttpClient, membershipType: BungieMem
         membershipType: membershipType,
         destinyMembershipId: membershipId,
     })
+    if(profile.ErrorCode !== 1) return Promise.reject(profile.Message)
 
     const characters = profile.Response.characters.data
     if(characters !== undefined) {

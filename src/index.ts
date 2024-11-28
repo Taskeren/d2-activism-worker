@@ -1,8 +1,7 @@
 import {Hono} from "hono"
-import {HttpClient, HttpClientConfig} from "bungie-api-ts/destiny2"
+import {DestinyManifestLanguage, HttpClient, HttpClientConfig} from "bungie-api-ts/destiny2"
 import {getUserActivityHistoryInTime} from "./history_getter"
-
-const API_KEY = "573fc23726ac47468cbe69e0c1f6a792"
+import {getActivityManifest} from "./activity_manifest"
 
 type EnvBindings = {
     BUNGIE_API_KEY: string,
@@ -70,7 +69,29 @@ app.get("/v1/get-history/:membershipType/:membershipId", async (c) => {
             code: 2,
             message: "internal error",
             error: e,
+        }, 500)
+    }
+})
+
+app.get("/v1/get-activity-definitions/:language?", async (c) => {
+    const client = createHttpClient(c.env.BUNGIE_API_KEY)
+
+    const defaultLanguage: DestinyManifestLanguage = "zh-cht"
+    const language = c.req.param("language") ?? defaultLanguage
+
+    try {
+        const definitions = await getActivityManifest(client, language)
+        return c.json({
+            code: 0,
+            message: "ok",
+            data: definitions,
         })
+    } catch(e) {
+        return c.json({
+            code: 1,
+            message: "internal error",
+            error: e,
+        }, 500)
     }
 })
 
