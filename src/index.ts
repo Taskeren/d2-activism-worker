@@ -62,6 +62,12 @@ app.get("/v1/get-history/:membershipType/:membershipId", async (c) => {
             code: 0,
             message: "ok",
             data: data,
+        }, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH, POST",
+                "Access-Control-Max-Age": "86400",
+            }
         })
     } catch(e) {
         console.error(e)
